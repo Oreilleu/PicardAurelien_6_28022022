@@ -2,18 +2,21 @@ const Sauce = require('../models/sauce');
 
 exports.getAllSauce = (req, res) => {
     Sauce.find()
-        .then(sauce => res.status(200).json({ sauce }))
+        .then(sauces => res.status(200).json(sauces))
         .catch(error => res.status(404).json({ error }));
 };
 
-// exports.getOneSauce = (req, res) => {
-//     Sauce.findOne({ _id: req.body.id })
-// };
+exports.getOneSauce = (req, res) => {
+    Sauce.findOne({ _id: req.params.id })
+        .then( sauces => res.status(200).json(sauces))
+        .catch( error => res.status(404).json({ error }));
+};
 
 exports.createSauce = (req, res) => {
-    // delete req.body._id
+    const sauceObject = JSON.parse(req.body.sauce);
     const sauce = new Sauce({
-        ...req.body
+        ...sauceObject,
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     });
     sauce.save()
         .then(() => res.status(201).json({ message: 'Objet créé '}))
