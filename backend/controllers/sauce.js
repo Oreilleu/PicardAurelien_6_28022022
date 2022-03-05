@@ -18,11 +18,7 @@ exports.createSauce = (req, res) => {
     const sauceObject = JSON.parse(req.body.sauce);
     const sauce = new Sauce({
         ...sauceObject,
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-        likes: 0,
-        dislikes: 0,
-        usersLiked: [],
-        usersDisliked: []
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     });
     sauce.save()
         .then(() => res.status(201).json({ message: 'Objet créé '}))
@@ -51,9 +47,14 @@ exports.deleteSauce = (req, res) => {
         })
     })
     .catch(error => res.status(500).json({ error }));
-
 };
 
-// exports.likeOnSauce = (req, res) => {
-
-// };
+exports.likeOnSauce = (req, res) => {
+    Sauce.findOne({ _id: req.params.id })
+        .then(sauce => {
+            if(sauce.likes == 1) {
+                usersLiked.push(req.body.id)
+            }
+        })
+        .catch();
+};
