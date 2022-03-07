@@ -4,9 +4,10 @@ const mongoose = require('mongoose');
 const userRoute = require('./routers/user');
 const userSauce = require('./routers/sauce');
 const path = require('path');
+require('dotenv').config();
 
-// Connexion à la base de donnée mongoDB
-mongoose.connect('mongodb+srv://Oreilleu:954502031aB@cluster0.rc7yz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+// Connexion à la base de donnée mongoDB -- variable environement
+mongoose.connect(process.env.MONGOOSE,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
