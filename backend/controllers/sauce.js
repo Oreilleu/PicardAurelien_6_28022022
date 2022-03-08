@@ -16,6 +16,7 @@ exports.getOneSauce = (req, res) => {
 
 exports.createSauce = (req, res) => {
     const sauceObject = JSON.parse(req.body.sauce);
+    // Récupère les données utilisateur + l'image
     const sauce = new Sauce({
         ...sauceObject,
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
@@ -25,13 +26,15 @@ exports.createSauce = (req, res) => {
         .catch(error => res.status(400).json({ error }));
 };
 
-
 exports.modifySauce = (req, res) => {
     Sauce.findOne({ _id: req.params.id })
         .then(sauce => {
+            // Supprime l'image actuelle
             const filename = sauce.imageUrl.split('/images/')[1];
             fs.unlink(`images/${filename}`, () => {
-                const sauceObject = req.file ?
+            
+            // Soit on met à jour les données sinon on met à jour les données + une image
+            const sauceObject = req.file ?
             { 
                 ...JSON.parse(req.body.sauce),
                 imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
@@ -41,7 +44,7 @@ exports.modifySauce = (req, res) => {
                 .catch(error => res.status(400).json({ error }));
             })
         })
-        .catch(error => res.status(404).json({ error }));   
+        .catch(error => res.status(400).json({ error }));   
 };
 
 exports.deleteSauce = (req, res) => {
@@ -59,7 +62,8 @@ exports.deleteSauce = (req, res) => {
 
 exports.likeOnSauce = (req, res) => {
     Sauce.findOne({ _id: req.params.id })
-        .then(sauce => {    
+        .then(sauce => {
+            // Si userId n'est pas présent dans usersLiked et si like est différent de 1
             if(!sauce.usersLiked.includes(req.body.userId) && req.body.like === 1) {
                 Sauce.updateOne({ _id: req.params.id }, 
                 {
@@ -69,6 +73,7 @@ exports.likeOnSauce = (req, res) => {
                 .then(() => res.status(201).json({message: 'like +1'}))
                 .catch(error => res.status(400).json({error}));
             }
+            // Si userId est présent dans usersLiked et si like est égal à 0
             else if(sauce.usersLiked.includes(req.body.userId) && req.body.like === 0){
                 Sauce.updateOne({ _id: req.params.id }, 
                     {
@@ -95,7 +100,6 @@ exports.likeOnSauce = (req, res) => {
                     .then(() => res.status(201).json({message: 'dislike -1'}))
                     .catch(error => res.status(400).json({error}));
             }
-            console.log(sauce)
         })
         .catch(error => res.status(404).json({error}));
 };

@@ -4,9 +4,10 @@ const mongoose = require('mongoose');
 const userRoute = require('./routers/user');
 const userSauce = require('./routers/sauce');
 const path = require('path');
+const helmet = require('helmet');
 require('dotenv').config();
 
-// Connexion à la base de donnée mongoDB -- variable environement
+// Connexion à la base de donnée mongoDB
 mongoose.connect(process.env.MONGOOSE,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
@@ -22,8 +23,9 @@ app.use((req, res, next) => {
 });
 
 // Middleware
-app.use(express.json());
 app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use(helmet());
+app.use(express.json());
 app.use('/api/auth', userRoute);
 app.use('/api/sauces', userSauce);
 
