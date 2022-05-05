@@ -21,3 +21,9 @@ If your browser fails to launch, or shows a 404 error, navigate your browser to 
 The app should reload automatically when you make a change to a file.
 
 Use `Ctrl+C` in the terminal to stop the local server.
+
+Projet 6 de la formation développeur web d'Openclassrooms : Construisez une API sécurisée pour une application d'avis gastronomiques
+
+- Mettre en œuvre des opérations CRUD de manière sécurisée
+- Implémenter un modèle logique de données conformément à la réglementation
+- Stocker des données de manière sécurisée
