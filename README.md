@@ -22,8 +22,16 @@ The app should reload automatically when you make a change to a file.
 
 Use `Ctrl+C` in the terminal to stop the local server.
 
-Projet 6 de la formation développeur web d'Openclassrooms : Construisez une API sécurisée pour une application d'avis gastronomiques
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Projet 6 de la formation développeur web d'Openclassrooms : Construisez une API sécurisée pour une application d'avis gastronomiques #
 
 - Mettre en œuvre des opérations CRUD de manière sécurisée
 - Implémenter un modèle logique de données conformément à la réglementation
 - Stocker des données de manière sécurisée
+
+# Scénario : #
+
+Vous avez passé la dernière année en tant que développeur back-end indépendant et vous avez travaillé sur plusieurs projets de tailles et de difficultés variées.
+
+La semaine dernière, vous avez reçu un message sur votre plateforme de freelance vous demandant de l'aide pour un nouveau projet. Les sauces piquantes sont de plus en plus populaires, en grande partie grâce à la série YouTube « Hot Ones » . C’est pourquoi ce nouveau client, la marque de condiments à base de piment Piiquante, veut développer une application web de critique des sauces piquantes appelée « Hot Takes » .
